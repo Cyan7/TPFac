@@ -4,8 +4,20 @@ public abstract class Produit {
     protected int id, ptFidel;
     protected float prix;
     protected boolean offrable;
+    protected String titre;
     protected ArrayList<Offre> mesOffres;
     protected Panier monPanier;
+
+    public Produit() {
+    }
+
+    public Produit(int id, String titre, int ptFidel, float prix, boolean offrable) {
+        this.id = id;
+        this.titre = titre;
+        this.ptFidel = ptFidel;
+        this.prix = prix;
+        this.offrable = offrable;
+    }
 
     //Getter et setters
     public int getId() {
@@ -14,6 +26,14 @@ public abstract class Produit {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
     }
 
     public int getPtFidel() {
@@ -45,6 +65,7 @@ public abstract class Produit {
     public String toString() {
         return "Produit{" +
                 "id=" + id +
+                ", titre=" + titre +
                 ", ptFidel=" + ptFidel +
                 ", prix=" + prix +
                 ", offrable=" + offrable +

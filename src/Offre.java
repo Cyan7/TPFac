@@ -6,6 +6,15 @@ public class Offre {
     protected typeReduction typeReduc;
     protected ArrayList<Produit> mesProduits;
 
+    public Offre(float reduction) {
+        this.reduction = reduction;
+    }
+
+    public Offre(float reduction, typeReduction typeReduc) {
+        this.reduction = reduction;
+        this.typeReduc = typeReduc;
+    }
+
     //getters et setters
     public float getReduction() {
         return reduction;

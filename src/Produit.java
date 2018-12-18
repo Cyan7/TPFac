@@ -5,7 +5,7 @@ public abstract class Produit {
     protected float prix;
     protected boolean offrable;
     protected String titre;
-    protected ArrayList<Offre> mesOffres;
+    protected ArrayList<? extends Offre> mesOffres;
     protected Panier monPanier;
 
     public Produit() {
@@ -88,5 +88,6 @@ public abstract class Produit {
              if (prixTemp<prixReel||prixReel<0){prixReel=prixTemp;}
         }
         return prixReel;*/
+        return 0;
     }
 }

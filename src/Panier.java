@@ -1,13 +1,15 @@
 import java.util.ArrayList;
 
-public class Panier {
+public class Panier implements Observable {
     private float prixTotal=0;
     private ArrayList<Produit> mesProduits;
     private Acheteur monAcheteur;
+    private ArrayList<Observer> mesObservers;
 
     public Panier(Acheteur monAcheteur) {
         this.monAcheteur = monAcheteur;
         mesProduits = new ArrayList<>();
+        mesObservers = new ArrayList<>();
     }
 
     public float getPrixTotal() {
@@ -37,20 +39,21 @@ public class Panier {
         }
         prixTot -= Manager.calculReduc(this);
         prixTotal = prixTot;
+        notifierObservers();
         return prixTotal;
     }
 
     public void ajouterProduit(int id){
-        Manager ourInstance = Manager.getInstance();
         int count=0;
-        for (Produit prod : ourInstance.getMesProduits()){
+        for (Produit prod : Manager.getMesProduits()){
             if(prod.getId()==id){
                 mesProduits.add(prod);
+                notifierObservers();
                 break;
             }
             else{count+=1;}
         }
-        if(count==ourInstance.getMesProduits().size()){
+        if(count==Manager.getMesProduits().size()){
             System.out.println("Cet id ne correspond à aucun produit");
         }
     }
@@ -59,10 +62,11 @@ public class Panier {
         calculerPrixTotal();
         try {
             monAcheteur.getMonStatut().payer(utiliserPtFidel, prixTotal);
-            //vider le panier
+            //vider le panier et remettre le prixTotal à 0
             for(int i=0;i < mesProduits.size();i++){
                 mesProduits.remove(i);
             }
+            prixTotal=0;
             //ajouter à la carte de fidélité les points cumulés
             if(monAcheteur.getMonStatut() instanceof Adherent){
                 CarteFidelite carte = ((Adherent) monAcheteur.getMonStatut()).getMesCartes().get(0);
@@ -79,5 +83,17 @@ public class Panier {
             total += p.getPtFidel();
         }
         return total;
+    }
+
+    @Override
+    public void ajouterObserver(Observer o) {
+        mesObservers.add(o);
+    }
+
+    @Override
+    public void notifierObservers() {
+        for(Observer o : mesObservers){
+            o.update(this);
+        }
     }
 }

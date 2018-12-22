@@ -20,13 +20,14 @@ public class Manager {
         return ourInstance;
     }
 
-    public ArrayList<Produit> getMesProduits(){
+    public static ArrayList<Produit> getMesProduits(){
         return mesProduits;
     }
 
-    public void setMesProduits(Produit p){
+    //il y a déjà une fct pour faire ça??
+    /*public void setMesProduits(Produit p){
         mesProduits.add(p);
-    }
+    }*/
 
     public static boolean creerOffre(ArrayList<Produit> produits, typeReduction type, float reduction, typeOffre tOffre){
         for (Produit produit:produits) {
@@ -159,6 +160,7 @@ public class Manager {
             System.out.println(p.toString());
         }
 
+
         //Test pour un adhérent
         Acheteur elian = new Acheteur("Elian","123");
         Adherent adherent = new Adherent();
@@ -196,10 +198,19 @@ public class Manager {
         connect = mathilde.seDeconnecter();
         System.out.println("Déconnexion réalisée : "+connect);
 
+
+        //Création des Observers
+        PrixObserver obs1 = new PrixObserver(20);
+        ProduitObserver obs2 = new ProduitObserver(Manager.getMesProduits().get(15));
+        CombinaisonProduitObserver obs3 = new CombinaisonProduitObserver(Manager.mesCategories.get(1),2);
+
         //test pour un membre du personnel
         Personnel personnel = new Personnel();
         connect = mathilde.seConnecter("Mathilde","123",personnel);
         System.out.println("Connexion réalisée : "+connect);
+        mathilde.getMonPanier().ajouterObserver(obs1);
+        mathilde.getMonPanier().ajouterObserver(obs2);
+        mathilde.getMonPanier().ajouterObserver(obs3);
         //échec de l'ajout car l'id de ce produit n'existe pas
         mathilde.getMonPanier().ajouterProduit(100);
         //succès de l'ajout

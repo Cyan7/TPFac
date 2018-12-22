@@ -6,6 +6,8 @@ public class Manager {
     private static ArrayList<Offre> mesOffres;
 
     private Manager() {
+        /*mesProduits = new ArrayList<>();
+        mesOffres = new ArrayList<>();*/
     }
 
     // Ici le getInstance() va uniquement servir à créer l'unique instance de Manager car toutes les méthodes et attribus sont static, c'est une classe utilitaire et on ne souhaite pas avoir à récupérer l'instance de Manager à chaque appel d'une fonction de cette classe.
@@ -14,6 +16,14 @@ public class Manager {
             ourInstance = new Manager();
         }
         return ourInstance;
+    }
+
+    public ArrayList<Produit> getMesProduits(){
+        return mesProduits;
+    }
+
+    public void setMesProduits(Produit p){
+        mesProduits.add(p);
     }
 
     public static boolean creerOffre(ArrayList<Produit> produits, typeReduction type, float reduction, typeOffre tOffre){

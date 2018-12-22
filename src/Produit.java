@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public abstract class Produit {
+public class Produit {
     private int id, ptFidel;
     private float prix;
     private boolean offrable;

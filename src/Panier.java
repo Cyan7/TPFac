@@ -1,11 +1,16 @@
 import java.util.ArrayList;
 
 public class Panier {
-    private ArrayList<Produit> mesProduits;
+    private float prixTotal=0;
+    private ArrayList<Produit> mesProduits = new ArrayList<>();
     private Acheteur monAcheteur;
 
     public Panier(Acheteur monAcheteur) {
         this.monAcheteur = monAcheteur;
+    }
+
+    public float getPrixTotal() {
+        return prixTotal;
     }
 
     public ArrayList<Produit> getMesProduits() {
@@ -24,8 +29,28 @@ public class Panier {
         this.monAcheteur = monAcheteur;
     }
 
+    //TODO à tester car classe manager pas encore implémentée
     public float calculerPrixTotal(){
-        //TODO
-        return 0;
+        float prixTot = 0;
+        for(Produit p : mesProduits){
+            prixTot += p.getPrix();
+        }
+        Manager manager = getInstance();
+        prixTot -= manager.calculReduc(this);
+        prixTotal = prixTot;
+        return prixTotal;
+    }
+
+    public void ajouterProduit(Produit p){
+        mesProduits.add(p);
+    }
+
+    public void payer(boolean utiliserPtFidel){
+        calculerPrixTotal();
+        try {
+            monAcheteur.getMonStatut().payer(utiliserPtFidel, prixTotal);
+        }catch(ErreurPaiement e){
+            System.out.println(e.getMessage());
+        }
     }
 }

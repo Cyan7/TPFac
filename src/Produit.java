@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 
 public abstract class Produit {
-    protected int id, ptFidel;
-    protected float prix;
-    protected boolean offrable;
-    protected String titre;
-    protected ArrayList<? extends Offre> mesOffres;
-    protected Panier monPanier;
+    private int id, ptFidel;
+    private float prix;
+    private boolean offrable;
+    private String titre;
+    private Panier monPanier;
+    private Categorie<Produit> categorie;
 
     public Produit() {
     }
@@ -60,6 +60,14 @@ public abstract class Produit {
         this.offrable = offrable;
     }
 
+    public Categorie<Produit> getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(Categorie<Produit> categorie) {
+        this.categorie = categorie;
+    }
+
     //toString
     @Override
     public String toString() {
@@ -72,22 +80,5 @@ public abstract class Produit {
                 '}';
     }
 
-    //TODO : problème so OffreFlash (aucun moyen de savoir que les autres Produits concernés doivent utiliser la mm Offre)
-    public float calculerPrixReel(){
-        //corps inutile car les produits implémentent Offrable ???
-        /*typeReduction type;
-        float reduc;
-        float prixTemp, prixReel=-1;
-        for (Offre o : mesOffres){
-             if(o.getTypeReduc()==typeReduction.rabais){
-                prixTemp=prix-o.getReduction();
-             }
-             else{
-                 prixTemp = o.getReduction()*getPrix();
-             }
-             if (prixTemp<prixReel||prixReel<0){prixReel=prixTemp;}
-        }
-        return prixReel;*/
-        return 0;
-    }
+
 }

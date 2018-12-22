@@ -35,8 +35,7 @@ public class Panier {
         for(Produit p : mesProduits){
             prixTot += p.getPrix();
         }
-        Manager manager = getInstance();
-        prixTot -= manager.calculReduc(this);
+        prixTot -= Manager.calculReduc(this);
         prixTotal = prixTot;
         return prixTotal;
     }

@@ -1,22 +1,29 @@
 import java.util.ArrayList;
 
-public abstract class Produit {
+public class Produit implements Cloneable{
     private int id, ptFidel;
     private float prix;
     private boolean offrable;
     private String titre;
     private Panier monPanier;
-    private Categorie<Produit> categorie;
+    private Categorie categorie;
 
     public Produit() {
     }
 
-    public Produit(int id, String titre, int ptFidel, float prix, boolean offrable) {
+    public Produit(Categorie categorie, int id, String titre, int ptFidel, float prix) {
         this.id = id;
         this.titre = titre;
         this.ptFidel = ptFidel;
         this.prix = prix;
-        this.offrable = offrable;
+        this.categorie = categorie;
+    }
+
+    public Object clone(){
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e){}
+        return null;
     }
 
     //Getter et setters
@@ -60,11 +67,11 @@ public abstract class Produit {
         this.offrable = offrable;
     }
 
-    public Categorie<Produit> getCategorie() {
+    public Categorie getCategorie() {
         return categorie;
     }
 
-    public void setCategorie(Categorie<Produit> categorie) {
+    public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
     }
 

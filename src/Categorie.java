@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Categorie<Produit> {
+public class Categorie {
     private String nom;
     private ArrayList<Produit> produitsCategorie;
     private boolean offresAuthorisees;
@@ -8,6 +8,7 @@ public class Categorie<Produit> {
     public Categorie(String nom, boolean offresAuthorisees){
         this.nom = nom;
         this.offresAuthorisees = offresAuthorisees;
+        this.produitsCategorie = new ArrayList<Produit>();
     }
 
     public Categorie(String nom, ArrayList<Produit> produitsCategorie, boolean offresAuthorisees){
@@ -38,5 +39,13 @@ public class Categorie<Produit> {
 
     public void setProduitsCategorie(ArrayList<Produit> produitsCategorie) {
         this.produitsCategorie = produitsCategorie;
+    }
+
+    @Override
+    public String toString() {
+        return "Categorie{" +
+                "nom=" + nom +
+                ", offresAuthorisees=" + offresAuthorisees +
+                '}';
     }
 }

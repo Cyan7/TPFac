@@ -8,6 +8,7 @@ public class Acheteur {
         this.nom = nom;
         this.mdp = mdp;
         setMonStatut(new Client());
+        setMonPanier(new Panier(this));
     }
 
     public String getNom() {
@@ -38,19 +39,30 @@ public class Acheteur {
         this.monStatut = monStatut;
     }
 
-    public boolean seConnecter(String nomAch, String mdpAch){
+    public Panier getMonPanier(){
+        return monPanier;
+    }
+
+    public void setMonPanier(Panier monPanier){
+        this.monPanier=monPanier;
+    }
+
+    public boolean seConnecter(String nomAch, String mdpAch, Statut stat){
         if(nomAch==nom && mdpAch==mdp && !connecte){
             connecte=true;
-            //TODO changer statut
+            stat.changeStatut(this);
             return true;
         }
         return false;
     }
 
+
+
     public boolean seDeconnecter(){
         if(connecte){
             connecte = false;
-            //TODO changer statut
+            Client c = new Client();
+            c.changeStatut(this);
             return true;
         }
         return false;

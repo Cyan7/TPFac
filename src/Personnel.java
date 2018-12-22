@@ -3,7 +3,7 @@ public class Personnel implements Statut {
     public Personnel() {
     }
 
-    //TODO
+
     @Override
     public void changeStatut(Acheteur monAcheteur) {
         monAcheteur.setMonStatut(this);

@@ -2,11 +2,12 @@ import java.util.ArrayList;
 
 public class Panier {
     private float prixTotal=0;
-    private ArrayList<Produit> mesProduits = new ArrayList<>();
+    private ArrayList<Produit> mesProduits;
     private Acheteur monAcheteur;
 
     public Panier(Acheteur monAcheteur) {
         this.monAcheteur = monAcheteur;
+        mesProduits = new ArrayList<>();
     }
 
     public float getPrixTotal() {
@@ -29,7 +30,6 @@ public class Panier {
         this.monAcheteur = monAcheteur;
     }
 
-    //TODO à tester car classe manager pas encore implémentée
     public float calculerPrixTotal(){
         float prixTot = 0;
         for(Produit p : mesProduits){
@@ -40,16 +40,39 @@ public class Panier {
         return prixTotal;
     }
 
-    public void ajouterProduit(Produit p){
-        mesProduits.add(p);
+    public void ajouterProduit(int id){
+        Manager ourInstance = Manager.getInstance();
+        int count=0;
+        for (Produit prod : ourInstance.getMesProduits()){
+            if(prod.getId()==id){
+                mesProduits.add(prod);
+                break;
+            }
+            else{count+=1;}
+        }
+        if(count==ourInstance.getMesProduits().size()){
+            System.out.println("Cet id ne correspond à aucun produit");
+        }
     }
 
     public void payer(boolean utiliserPtFidel){
         calculerPrixTotal();
         try {
             monAcheteur.getMonStatut().payer(utiliserPtFidel, prixTotal);
+            if(monAcheteur.getMonStatut() instanceof Adherent){
+                CarteFidelite carte = ((Adherent) monAcheteur.getMonStatut()).getMesCartes().get(0);
+                carte.setPtFidel(carte.getPtFidel()+calculerPtsFidelite());
+            }
         }catch(ErreurPaiement e){
             System.out.println(e.getMessage());
         }
+    }
+
+    public int calculerPtsFidelite(){
+        int total=0;
+        for(Produit p : mesProduits){
+            total += p.getPtFidel();
+        }
+        return total;
     }
 }

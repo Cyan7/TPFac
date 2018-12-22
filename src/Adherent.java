@@ -18,7 +18,7 @@ public class Adherent implements Statut {
         this.mesCartes = mesCartes;
     }
 
-    //TODO
+
     @Override
     public void changeStatut(Acheteur monAcheteur) {
         monAcheteur.setMonStatut(this);
@@ -29,18 +29,21 @@ public class Adherent implements Statut {
         float prixAPayer=prixTotal;
         if(utiliserPtFidel){
             int ptFid=0;
+            //Calcul du total des pts de fidélité
             for(CarteFidelite c : mesCartes){
                 ptFid += c.getPtFidel();
             }
-            if(ptFid<=prixTotal){
+            //on considère que 1€=10 points de fidélité
+            if(Math.floor(ptFid/10)<=prixTotal){
                 prixAPayer = prixTotal - (float)Math.floor(ptFid/10);
                 for(CarteFidelite c : mesCartes){
                     c.setPtFidel(0);
                 }
             }
+            //Si toutes les cartes fidélité ne sont pas à débiter entièrement
             else{
                 prixAPayer = 0;
-                ptFid-=prixTotal;
+                ptFid-=(int)Math.floor(prixTotal*10);
                 for(CarteFidelite c : mesCartes){
                     if(c.getPtFidel()>ptFid) {
                         c.setPtFidel(c.getPtFidel()-ptFid);

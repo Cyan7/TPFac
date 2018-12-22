@@ -20,6 +20,14 @@ public class Manager {
         return ourInstance;
     }
 
+    public ArrayList<Produit> getMesProduits(){
+        return mesProduits;
+    }
+
+    public void setMesProduits(Produit p){
+        mesProduits.add(p);
+    }
+
     public static boolean creerOffre(ArrayList<Produit> produits, typeReduction type, float reduction, typeOffre tOffre){
         for (Produit produit:produits) {
             if (!produit.getCategorie().isOffresAuthorisees()) return false; // On vérifie que les produits aient le droit de bénéficier d'une offre.

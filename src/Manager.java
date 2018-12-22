@@ -159,6 +159,54 @@ public class Manager {
             System.out.println(p.toString());
         }
 
+        //Test pour un adhérent
+        Acheteur elian = new Acheteur("Elian","123");
+        Adherent adherent = new Adherent();
+        CarteFidelite carte = new CarteFidelite(20);
+        ArrayList<CarteFidelite> cartesListe = new ArrayList<>();
+        cartesListe.add(carte);
+        adherent.setMesCartes(cartesListe);
+        boolean connect = elian.seConnecter("Elian","123",adherent);
+        System.out.println("Connexion réalisée : "+connect);
+
+        elian.getMonPanier().ajouterProduit(1);
+        float prixTotal = elian.getMonPanier().calculerPrixTotal();
+        System.out.println("Montant du panier : " + prixTotal);
+
+        elian.getMonPanier().payer(true);
+        System.out.println("points de fidélité restants : "+((Adherent)elian.getMonStatut()).getMesCartes().get(0).getPtFidel());
+        connect = elian.seDeconnecter();
+        System.out.println("Déconnexion réalisée : "+connect);
+
+        //test pour un client
+        Acheteur mathilde = new Acheteur("Mathilde","123");
+        Client client = new Client();
+        //échec de connexion car mauvais identifiant
+        connect = mathilde.seConnecter("Elian","123",client);
+        System.out.println("Connexion réalisée : "+connect);
+        //échec de connexion car mauvais statut
+        connect = mathilde.seConnecter("Mathilde","123",client);
+        System.out.println("Connexion réalisée : "+connect);
+        mathilde.getMonPanier().ajouterProduit(1);
+        //échec du paiement car un client ne peut utiliser de pts de fidélité puisqu'il n'en a pas
+        mathilde.getMonPanier().payer(true);
+        //succès du paiement
+        mathilde.getMonPanier().payer(false);
+        //échec de la déconnexion car le client n'est pas connecté
+        connect = mathilde.seDeconnecter();
+        System.out.println("Déconnexion réalisée : "+connect);
+
+        //test pour un membre du personnel
+        Personnel personnel = new Personnel();
+        connect = mathilde.seConnecter("Mathilde","123",personnel);
+        System.out.println("Connexion réalisée : "+connect);
+        //échec de l'ajout car l'id de ce produit n'existe pas
+        mathilde.getMonPanier().ajouterProduit(100);
+        //succès de l'ajout
+        mathilde.getMonPanier().ajouterProduit(7);
+        mathilde.getMonPanier().ajouterProduit(8);
+        mathilde.getMonPanier().ajouterProduit(9);
+        mathilde.getMonPanier().payer(false);
     }
 
 }

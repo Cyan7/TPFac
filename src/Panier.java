@@ -59,6 +59,11 @@ public class Panier {
         calculerPrixTotal();
         try {
             monAcheteur.getMonStatut().payer(utiliserPtFidel, prixTotal);
+            //vider le panier
+            for(int i=0;i < mesProduits.size();i++){
+                mesProduits.remove(i);
+            }
+            //ajouter à la carte de fidélité les points cumulés
             if(monAcheteur.getMonStatut() instanceof Adherent){
                 CarteFidelite carte = ((Adherent) monAcheteur.getMonStatut()).getMesCartes().get(0);
                 carte.setPtFidel(carte.getPtFidel()+calculerPtsFidelite());

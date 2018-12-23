@@ -48,7 +48,7 @@ public class Acheteur {
     }
 
     public boolean seConnecter(String nomAch, String mdpAch, Statut stat){
-        if(nomAch==nom && mdpAch==mdp && !connecte){
+        if(nomAch==nom && mdpAch==mdp && !connecte && !(stat instanceof Client)){
             connecte=true;
             stat.changeStatut(this);
             return true;

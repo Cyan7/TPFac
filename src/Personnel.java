@@ -15,7 +15,7 @@ public class Personnel implements Statut {
             throw new ErreurPaiement("Vous n'êtes pas adhérent.e : pas de points de fidélité à utiliser");
         }
         else {
-            System.out.println("Paiment effectué");
+            System.out.println("Paiment effectué de €" + prixTotal);
         }
     }
 }

@@ -15,7 +15,7 @@ public class Client implements Statut {
             throw new ErreurPaiement("Vous n'êtes pas connecté.e : pas de points de fidélité à utiliser");
         }
         else {
-            System.out.println("Paiment effectué");
+            System.out.println("Paiment effectué de €" + prixTotal);
         }
     }
 }

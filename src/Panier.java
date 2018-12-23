@@ -1,3 +1,4 @@
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.ArrayList;
 
 public class Panier implements Observable {
@@ -63,16 +64,24 @@ public class Panier implements Observable {
         calculerPrixTotal();
         try {
             monAcheteur.getMonStatut().payer(utiliserPtFidel, prixTotal);
-            //vider le panier et remettre le prixTotal à 0
-            for(int i=0;i < mesProduits.size();i++){
-                mesProduits.remove(i);
-            }
-            prixTotal=0;
             //ajouter à la carte de fidélité les points cumulés
             if(monAcheteur.getMonStatut() instanceof Adherent){
                 CarteFidelite carte = ((Adherent) monAcheteur.getMonStatut()).getMesCartes().get(0);
                 carte.setPtFidel(carte.getPtFidel()+calculerPtsFidelite());
             }
+            for (Produit produitPanier:this.getMesProduits()){
+                for (Produit produit:Manager.getMesProduits()){
+                    if (produitPanier.getId() == produit.getId()) {
+                        Manager.getMesProduits().remove(produit);
+                        break;
+                    }
+                }
+            }
+            //vider le panier et remettre le prixTotal à 0
+            for(Produit p:mesProduits){
+                mesProduits.remove(p);
+            }
+            prixTotal=0;
         }catch(ErreurPaiement e){
             System.out.println(e.getMessage());
         }
@@ -81,6 +90,7 @@ public class Panier implements Observable {
     public int calculerPtsFidelite(){
         int total=0;
         for(Produit p : mesProduits){
+            System.out.println("Pt fidel : " + p.getPtFidel());
             total += p.getPtFidel();
         }
         return total;

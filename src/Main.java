@@ -6,7 +6,7 @@ public class Main {
 
         Manager.getInstance(); //création de l'unique instance de manager
         Manager.creerCategorie("DVD", true);
-        Manager.creerProduit("DVD", 1, 25,"Star Wars V", 15);
+        Manager.creerProduit("DVD", 1, 25,"Star Wars V", 10);
         Manager.ajouterProduits(1, 9);
         Manager.creerCategorie("Livre", false);
         Manager.creerProduit("Livre", 2, 10,"Aerkaos",5);
@@ -24,12 +24,16 @@ public class Main {
         System.out.println(connect);
 
         elian.getMonPanier().ajouterProduit(1);
+        elian.getMonPanier().ajouterProduit(2);
         System.out.println(elian.getMonPanier().getMesProduits().get(0).toString());
         float prixTotal = elian.getMonPanier().calculerPrixTotal();
         System.out.println(prixTotal);
 
+        System.out.println("Taille avant achat : " + Manager.getMesProduits().size());
+
         elian.getMonPanier().payer(true);
-        System.out.println(((Adherent)elian.getMonStatut()).getMesCartes().get(0).getPtFidel());
+        System.out.println("Taille après achat : " + Manager.getMesProduits().size());
+        System.out.println("Points de fidélité : " + ((Adherent)elian.getMonStatut()).getMesCartes().get(0).getPtFidel());
         elian.seDeconnecter();
     }
 }

@@ -10,10 +10,10 @@ public class OffreProduit extends Offre {
         }
     }
 
-    public float calculReduc(){
+    public float calculReduc(Statut statut){
         if (typeReduc == typeReduction.rabais){
             return reduction;
         }
-        return reduction * produits.get(0).getPrix();
+        return reduction * produits.get(0).getPrix() / 100;
     }
 }

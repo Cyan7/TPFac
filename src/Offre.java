@@ -13,6 +13,6 @@ abstract public class Offre {
         return produits;
     }
 
-    abstract public float calculReduc();
+    abstract public float calculReduc(Statut statut);
 
 }

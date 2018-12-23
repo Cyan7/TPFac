@@ -7,9 +7,9 @@ public class Manager {
     private static ArrayList<Categorie>  mesCategories;
 
     private Manager() {
-        this.mesCategories = new ArrayList<Categorie>();
-        this.mesProduits = new ArrayList<Produit>();
-        this.mesOffres = new ArrayList<Offre>();
+        mesCategories = new ArrayList<Categorie>();
+        mesProduits = new ArrayList<Produit>();
+        mesOffres = new ArrayList<Offre>();
     }
 
     // Ici le getInstance() va uniquement servir à créer l'unique instance de Manager car toutes les méthodes et attribus sont static, c'est une classe utilitaire et on ne souhaite pas avoir à récupérer l'instance de Manager à chaque appel d'une fonction de cette classe.
@@ -124,7 +124,7 @@ public class Manager {
                 if (!produitPresent) produitsPresents = false;
             }
             if (produitsPresents){
-                reduc += offre.calculReduc();
+                reduc += offre.calculReduc(p.getMonAcheteur().getMonStatut());
             }
         }
 

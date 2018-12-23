@@ -35,6 +35,7 @@ public class Panier implements Observable {
     public float calculerPrixTotal(){
         float prixTot = 0;
         for(Produit p : mesProduits){
+            System.out.println(p.toString());
             prixTot += p.getPrix();
         }
         prixTot -= Manager.calculReduc(this);

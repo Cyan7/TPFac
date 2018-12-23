@@ -10,7 +10,7 @@ public class OffreFlash extends Offre {
         }
     }
 
-    public float calculReduc(){
+    public float calculReduc(Statut statut){
         if (typeReduc == typeReduction.rabais){
             return reduction;
         }
@@ -18,6 +18,6 @@ public class OffreFlash extends Offre {
         for (int i = 0; i < produits.size(); i++){
             prix += produits.get(i).getPrix();
         }
-        return reduction * prix;
+        return reduction * prix / 100;
     }
 }

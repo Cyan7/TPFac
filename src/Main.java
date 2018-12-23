@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String [] args){
 
-        Manager ourInstance = Manager.getInstance();
+        /*Manager ourInstance = Manager.getInstance();
         Produit p1 = new Produit(1,"Aerkaos",10,14.32f,false);
         ourInstance.getMesProduits().add(p1);
 
@@ -22,6 +22,6 @@ public class Main {
 
         elian.getMonPanier().payer(true);
         System.out.println(((Adherent)elian.getMonStatut()).getMesCartes().get(0).getPtFidel());
-        elian.seDeconnecter();
+        elian.seDeconnecter();*/
     }
 }

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Acheteur {
     private String nom, mdp;
     private boolean connecte = false;
@@ -57,7 +59,6 @@ public class Acheteur {
     }
 
 
-
     public boolean seDeconnecter(){
         if(connecte){
             connecte = false;
@@ -65,6 +66,49 @@ public class Acheteur {
             c.changeStatut(this);
             return true;
         }
+        return false;
+    }
+
+    public boolean creerUnCompteAdherent(){
+        if(this.getMonStatut() instanceof Client){
+            CarteFidelite carte = new CarteFidelite(0);
+            ArrayList<CarteFidelite> liste = new ArrayList<>();
+            liste.add(carte);
+            Adherent adherent = new Adherent(liste);
+            this.setMonStatut(adherent);
+            return true;
+        }
+        System.out.println("Vous avez déjà un compte");
+        return false;
+    }
+
+    public boolean supprimerCompteAdherent(){
+        if(this.getMonStatut() instanceof Adherent){
+            Client client = new Client();
+            this.setMonStatut(client);
+            return true;
+        }
+        System.out.println("Vous ne pouvez supprimer ce compte adhérent");
+        return false;
+    }
+
+    public boolean etreEmbauche(){
+        if(this.getMonStatut() instanceof Client){
+            Personnel personnel = new Personnel();
+            this.setMonStatut(personnel);
+            return true;
+        }
+        System.out.println("Vous avez déjà un compte");
+        return false;
+    }
+
+    public boolean rompreUnContrat(){
+        if(this.getMonStatut() instanceof Personnel){
+            Client client = new Client();
+            this.setMonStatut(client);
+            return true;
+        }
+        System.out.println("Vous ne pouvez supprimer ce compte de personnel");
         return false;
     }
 }

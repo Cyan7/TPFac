@@ -24,6 +24,10 @@ public class Manager {
         return mesProduits;
     }
 
+    public static ArrayList<Categorie> getMesCategories(){
+        return mesCategories;
+    }
+
     //il y a déjà une fct pour faire ça??
     /*public void setMesProduits(Produit p){
         mesProduits.add(p);
@@ -133,7 +137,7 @@ public class Manager {
         return reduc;
     }
 
-    public static void main(String args[]){
+    /*public static void main(String args[]){
         getInstance();
         creerCategorie("DVD", true);
         creerProduit("DVD", 1, 25,"Star Wars V", 15);
@@ -218,6 +222,6 @@ public class Manager {
         mathilde.getMonPanier().ajouterProduit(8);
         mathilde.getMonPanier().ajouterProduit(9);
         mathilde.getMonPanier().payer(false);
-    }
+    }*/
 
 }

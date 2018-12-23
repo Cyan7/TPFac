@@ -10,10 +10,12 @@ public class Main {
         Manager.ajouterProduits(1, 9);
         Manager.creerCategorie("Livre", false);
         Manager.creerProduit("Livre", 2, 10,"Aerkaos",5);
+        Manager.ajouterProduits(2, 1);
         ArrayList<Produit> pOffre = new ArrayList<Produit>();
         pOffre.add(Manager.getMesProduits().get(0));
         Manager.creerOffre(pOffre, typeReduction.pourcentage, 50, typeOffre.adherent);
 
+        //test pour un adhérent
         Acheteur elian = new Acheteur("Elian","123");
         Adherent adherent = new Adherent();
         CarteFidelite carte = new CarteFidelite(20);
@@ -35,5 +37,44 @@ public class Main {
         System.out.println("Taille après achat : " + Manager.getMesProduits().size());
         System.out.println("Points de fidélité : " + ((Adherent)elian.getMonStatut()).getMesCartes().get(0).getPtFidel());
         elian.seDeconnecter();
+
+        //test pour un client
+        Acheteur mathilde = new Acheteur("Mathilde","123");
+        Client client = new Client();
+        //échec de connexion car mauvais identifiant
+        connect = mathilde.seConnecter("Elian","123",client);
+        System.out.println("Connexion réalisée : "+connect);
+        //échec de connexion car mauvais statut
+        connect = mathilde.seConnecter("Mathilde","123",client);
+        System.out.println("Connexion réalisée : "+connect);
+        mathilde.getMonPanier().ajouterProduit(1);
+        //échec du paiement car un client ne peut utiliser de pts de fidélité puisqu'il n'en a pas
+        mathilde.getMonPanier().payer(true);
+        //succès du paiement
+        mathilde.getMonPanier().payer(false);
+        //échec de la déconnexion car le client n'est pas connecté
+        connect = mathilde.seDeconnecter();
+        System.out.println("Déconnexion réalisée : "+connect);
+
+
+        //Création des Observers
+        PrixObserver obs1 = new PrixObserver(20);
+        ProduitObserver obs2 = new ProduitObserver(Manager.getMesProduits().get(7));
+        CombinaisonProduitObserver obs3 = new CombinaisonProduitObserver(Manager.getMesCategories().get(1),1);
+
+        //test pour un membre du personnel
+        Personnel personnel = new Personnel();
+        connect = mathilde.seConnecter("Mathilde","123",personnel);
+        System.out.println("Connexion réalisée : "+connect);
+        mathilde.getMonPanier().ajouterObserver(obs1);
+        mathilde.getMonPanier().ajouterObserver(obs2);
+        mathilde.getMonPanier().ajouterObserver(obs3);
+        //échec de l'ajout car l'id de ce produit n'existe pas
+        mathilde.getMonPanier().ajouterProduit(100);
+        //succès de l'ajout
+        mathilde.getMonPanier().ajouterProduit(1);
+        mathilde.getMonPanier().ajouterProduit(2);
+        //mathilde.getMonPanier().ajouterProduit(9);
+        mathilde.getMonPanier().payer(false);
     }
 }

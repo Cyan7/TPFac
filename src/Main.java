@@ -4,6 +4,10 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String [] args){
 
+        // Création d'une situation ou les produits dispo en magasin sont 10 Star Wars V et 2 Aerkaos
+        // On crée egalement une offre pour les adherents sur le produit d'id 1 (ici on se permet d'aller
+        // le chercher en faisant get(0) des produits stockés dans le manager car on connait l'ordre de
+        // remplissage mais normalement il faudrait le chercher à l'aide de son id).
         Manager.getInstance(); //création de l'unique instance de manager
         Manager.creerCategorie("DVD", true);
         Manager.creerProduit("DVD", 1, 25,"Star Wars V", 10);
@@ -28,6 +32,7 @@ public class Main {
         elian.getMonPanier().ajouterProduit(1);
         elian.getMonPanier().ajouterProduit(2);
         System.out.println(elian.getMonPanier().getMesProduits().get(0).toString());
+        System.out.println(elian.getMonPanier().getMesProduits().get(1).toString());
         float prixTotal = elian.getMonPanier().calculerPrixTotal();
         System.out.println(prixTotal);
 

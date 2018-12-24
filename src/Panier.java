@@ -89,7 +89,6 @@ public class Panier implements Observable {
     public int calculerPtsFidelite(){
         int total=0;
         for(Produit p : mesProduits){
-            System.out.println("Pt fidel : " + p.getPtFidel());
             total += p.getPtFidel();
         }
         return total;

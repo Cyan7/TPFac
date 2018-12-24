@@ -136,4 +136,12 @@ public class Manager {
 
         return reduc;
     }
+
+    public boolean supprimerOffre(Offre o){
+        if (mesOffres.contains(o)){
+            mesOffres.remove(o);
+            return true;
+        }
+        return false;
+    }
 }

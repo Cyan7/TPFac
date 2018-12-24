@@ -81,5 +81,19 @@ public class Main {
         mathilde.getMonPanier().ajouterProduit(2);
         //mathilde.getMonPanier().ajouterProduit(9);
         mathilde.getMonPanier().payer(false);
+
+        //test de chgts de statut
+        Acheteur frederic = new Acheteur("Frédéric", "ok ou ko");
+        frederic.creerUnCompteAdherent();
+        System.out.println(frederic.getMonStatut().toString());
+        frederic.etreEmbauche();
+        System.out.println(frederic.getMonStatut().toString());
+        frederic.rompreUnContrat();
+        frederic.supprimerCompteAdherent();
+        System.out.println(frederic.getMonStatut().toString());
+        frederic.etreEmbauche();
+        System.out.println(frederic.getMonStatut().toString());
+        frederic.rompreUnContrat();
+        System.out.println(frederic.getMonStatut().toString());
     }
 }
